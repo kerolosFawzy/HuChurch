@@ -1,5 +1,6 @@
 import express from 'express';
 import bodyParser from 'body-parser';
+import mongoose from 'mongoose';
 
 const app = express();
 app.set('view engine', 'ejs');
