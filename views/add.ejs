@@ -1,98 +1,106 @@
-<!DOCTYPE html>
-<html lang="en">
+<%- include('includes/header', {title: "Add" }); %>
 
-<head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Add</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous" />
-    <link rel="stylesheet" href="/path/to/bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css" />
-</head>
 
-<body>
-    <nav class="navbar navbar-expand navbar-dark bg-dark">
-        <div class="container-fluid">
-            <img class="me-3" src="logo.png" alt="" width="38" height="48" />
-            <h3 style="color: aliceblue">Hurgada Church</h3>
-            <div class="collapse navbar-collapse justify-content-md-center" id="navbarsExample08">
-                <ul class="navbar-nav">
-                    <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="#">Add New Person</a>
-                    </li>
-                </ul>
+    <body>
+        <nav class="navbar navbar-expand navbar-dark bg-dark">
+            <div class="container-fluid">
+                <a href="/" style="all: unset;" class="d-flex flex-row align-items-center">
+                    <img class="me-3" src="logo.png" alt="" width="38" height="48" />
+                    <h3 style="color: aliceblue;">Hurgada Church</h3>
+                </a>
+                <div class="collapse navbar-collapse justify-content-md-center" id="navbarsExample08">
+                    <ul class="navbar-nav">
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="#">Add New Person</a>
+                        </li>
+                    </ul>
+                </div>
             </div>
+        </nav>
+        <div class="container mt-5">
+            <form class="row g-3 needs-validation was-validated" novalidate="" method="post" action="/add">
+                <div class="col-md-4 position-relative">
+                    <label for="validationTooltip01" class="form-label">First name</label>
+                    <input type="text" class="form-control" id="validationTooltip01" name="Fname" required=""
+                        minlength="3" />
+                </div>
+                <div class="col-md-4 position-relative">
+                    <label for="validationTooltip02" class="form-label">Rest of the name</label>
+                    <input type="text" class="form-control" id="validationTooltip02" name="Rname" required=""
+                        minlength="3" />
+                </div>
+                <div class="col-md-4 position-relative">
+                    <label for="validationTooltipUsername" class="form-label">Date Of Birth</label>
+                    <div class="input-group has-validation">
+                        <input type="date" id="datepicker" name="Date" class="form-control"
+                            id="validationTooltipUsername" required />
+                    </div>
+                </div>
+                <div class="col-md-4 position-relative">
+                    <label for="validationTooltipUsername" class="form-label">Email</label>
+                    <div class="input-group has-validation">
+                        <span class="input-group-text" id="validationTooltipUsernamePrepend">@</span>
+                        <input type="email" class="form-control" id="validationTooltipUsername" name="email"
+                            aria-describedby="validationTooltipUsernamePrepend" />
+                    </div>
+                </div>
+                <div class="col-md-4 position-relative">
+                    <label for="validationTooltipUsername" class="form-label">Phone</label>
+                    <div class="input-group has-validation">
+                        <span class="input-group-text" id="validationTooltipUsernamePrepend">📞</span>
+                        <input type="number" class="form-control" id="validationTooltipUsername" name="phone"
+                            aria-describedby="validationTooltipUsernamePrepend" required />
+                    </div>
+                </div>
+                <div class="col-md-4 position-relative">
+                    <label for="validationTooltipUsername" class="form-label">Church Name</label>
+                    <div class="input-group has-validation">
+                        <input type="text" class="form-control" id="validationTooltipUsername" name="ChName"
+                            aria-describedby="validationTooltipUsernamePrepend" required minlength="3" />
+                    </div>
+                </div>
+                <div class="col-md-4 position-relative">
+                    <label for="validationTooltip03" class="form-label">City</label>
+                    <input type="text" class="form-control" id="validationTooltip03" value="Hurgada" name="city"
+                        required="" minlength="3" />
+                </div>
+                <div class="col-md-4 position-relative">
+                    <label for="validationTooltip03" class="form-label">Area</label>
+                    <input type="text" class="form-control" id="validationTooltip03" required="" name="area"
+                        minlength="3" />
+                </div>
+                <div class="col-md-4 position-relative">
+                    <label for="validationTooltip03" class="form-label">Street</label>
+                    <input type="text" class="form-control" id="validationTooltip03" required="" name="street"
+                        minlength="3" />
+                </div>
+
+                <div class="col-12 mt-5">
+                    <button class="btn btn-primary btn-lg" type="submit" style="width: 70%; margin-left: 15%">
+                        <span style="font-weight: bold; color: #00ff89; font-size: larger;">+</span> Add Person
+                    </button>
+                </div>
+            </form>
+            <% if (error){ %>
+                <div class="bg-body-tertiary p-5 rounded mt-5">
+                    <h1 style="color: brown">Error</h1>
+                    <p class="lead">
+                        <%= error %>.
+                    </p>
+                </div>
+                <% } %>
+                    <% if (success){ %>
+                        <div class="bg-body-tertiary p-5 rounded mt-5">
+                            <h1 style="color: brown">success</h1>
+                            <p class="lead">Successfully Added</p>
+                        </div>
+                        <% } %>
         </div>
-    </nav>
-    <div class="container mt-5 ">
-        <form class="row g-3 needs-validation was-validated" novalidate="" method="post" action="/add">
-            <div class="col-md-4 position-relative">
-                <label for="validationTooltip01" class="form-label">First name</label>
-                <input type="text" class="form-control" id="validationTooltip01" name="Fname" required="">
-            </div>
-            <div class="col-md-4 position-relative">
-                <label for="validationTooltip02" class="form-label">Rest of the name</label>
-                <input type="text" class="form-control" id="validationTooltip02" name="Rname" required="">
-            </div>
-            <div class="col-md-4 position-relative">
-                <label for="validationTooltipUsername" class="form-label">Date Of Birth</label>
-                <div class="input-group has-validation">
-                    <input type="date" id="datepicker" name="Date" class="form-control" id="validationTooltipUsername"
-                        required>
-                </div>
-            </div>
-            <div class="col-md-4 position-relative">
-                <label for="validationTooltipUsername" class="form-label">Email</label>
-                <div class="input-group has-validation">
-                    <span class="input-group-text" id="validationTooltipUsernamePrepend">@</span>
-                    <input type="email" class="form-control" id="validationTooltipUsername" name="email"
-                        aria-describedby="validationTooltipUsernamePrepend">
-                </div>
-            </div>
-            <div class="col-md-4 position-relative">
-                <label for="validationTooltipUsername" class="form-label">Phone</label>
-                <div class="input-group has-validation">
-                    <span class="input-group-text" id="validationTooltipUsernamePrepend">📞</span>
-                    <input type="number" class="form-control" id="validationTooltipUsername" name="phone"
-                        aria-describedby="validationTooltipUsernamePrepend" required>
 
-                </div>
-            </div>
-            <div class="col-md-4 position-relative">
-                <label for="validationTooltipUsername" class="form-label">Church Name</label>
-                <div class="input-group has-validation">
-                    <input type="text" class="form-control" id="validationTooltipUsername" name="ChName"
-                        aria-describedby="validationTooltipUsernamePrepend" required>
-                </div>
-            </div>
-            <div class="col-md-4 position-relative">
-                <label for="validationTooltip03" class="form-label">City</label>
-                <input type="text" class="form-control" id="validationTooltip03" value="Hurgada" name="city"
-                    required="">
-            </div>
-            <div class="col-md-4 position-relative">
-                <label for="validationTooltip03" class="form-label">Area</label>
-                <input type="text" class="form-control" id="validationTooltip03" required="" name="area">
-            </div>
-            <div class="col-md-4 position-relative">
-                <label for="validationTooltip03" class="form-label">Street</label>
-                <input type="text" class="form-control" id="validationTooltip03" required="" name="street">
-            </div>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz"
+            crossorigin="anonymous"></script>
 
-            <div class="col-12 mt-5">
-                <button class="btn btn-primary btn-lg" type="submit" style="width: 70%;margin-left: 15%;">Submit
-                    Form</button>
-            </div>
-        </form>
-    </div>
+    </body>
 
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz"
-        crossorigin="anonymous"></script>
-    <script src="https://code.jquery.com/jquery-3.7.0.min.js"
-        integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
-
-</body>
-
-</html>
+    </html>

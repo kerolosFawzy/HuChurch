@@ -1,14 +1,27 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+<%- include('includes/header', {title: "Home" }); %>
 
-</head>
-<body>
-    <h1>Hello</h1>
-</body>
-</html>
+    <body>
+        <header class="p-3 text-bg-dark">
+            <div class="container">
+                <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
+                    <a href="/" class="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none">
+                        <img class="me-3" src="logo.png" alt="" width="38" height="48" />
+                        <h3 style="color: aliceblue;">Hurgada Church</h3>
+                    </a>
+
+                    <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0 mx-2">
+                        <li><a href="/" class="nav-link px-2 text-secondary">Home</a></li>
+                        <li><a href="/add-user" class="nav-link px-2 text-white">Add User</a></li>
+                        <li><a href="/add" class="nav-link px-2 text-white">Add Person</a></li>
+                    </ul>
+                    <div class="text-end">
+                        <a href="/logout">
+                            <button type="button" class="btn btn-warning">LogOut</button>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </header>
+    </body>
+
+    </html>
