@@ -10,7 +10,7 @@ const PersonSchema = new Schema({
   id: ObjectId,
   Fname: { type: String, min: 3 },
   Rname: { type: String, min: 3 },
-  date: Date,
+  date: { type: Date },
   email: { type: String },
   phone: { type: String, min: 11 },
   ChName: { type: String, min: 3 },

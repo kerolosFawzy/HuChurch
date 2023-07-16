@@ -21,7 +21,79 @@ app.use(
 
 app.get('/', function (req, res) {
   if (!req.session.user) res.render('login', { error: false });
-  else res.render('home');
+  else {
+    PersonModel.find({}).then((users) => {
+      res.render('home', { users });
+    });
+  }
+});
+function removeEmpty(obj) {
+  return Object.fromEntries(Object.entries(obj).filter(([_, v]) => v != ''));
+}
+app.post('/', function (req, res) {
+  if (!req.session.user) res.render('login', { error: false });
+  else {
+    let data = removeEmpty(req.body);
+    if (data.min_age || data.max_age) {
+      const defaultMinAge = 1;
+      const defaultMaxAge = 100;
+
+      // Calculate the minimum and maximum age based on the default or the specified values
+      const minAge = data.min_age ? parseInt(data.min_age) : defaultMinAge;
+      const maxAge = data.max_age ? parseInt(data.max_age) : defaultMaxAge;
+
+      // Calculate the minimum and maximum age ranges in milliseconds
+      const minAgeMilliseconds = minAge * 365 * 24 * 60 * 60 * 1000;
+      const maxAgeMilliseconds = maxAge * 365 * 24 * 60 * 60 * 1000;
+
+      // Create the age range conditions
+      const ageRangeConditions = [
+        {
+          $lte: [{ $subtract: [new Date(), '$date'] }, maxAgeMilliseconds],
+        },
+      ];
+
+      // Add the minimum age condition if it is greater than the default
+      if (minAge > defaultMinAge) {
+        ageRangeConditions.push({
+          $gte: [{ $subtract: [new Date(), '$date'] }, minAgeMilliseconds],
+        });
+      }
+
+      const query = {};
+      for (const param in data) {
+        const value = data[param];
+        if (value) {
+          if (!(param === 'min_age' || param === 'max_age'))
+            query[param] = { $regex: `^${value}`, $options: 'i' };
+        }
+      }
+      PersonModel.find(
+        {
+          $expr: { $and: ageRangeConditions },
+          query,
+        },
+        (err, results) => {
+          if (err) {
+            console.error(err);
+          } else {
+            res.render('home', { users: results });
+          }
+        }
+      );
+    } else {
+      const query = {};
+      for (const param in data) {
+        const value = data[param];
+        if (value) {
+          query[param] = { $regex: `^${value}`, $options: 'i' };
+        }
+      }
+      PersonModel.find(query).then((users) => {
+        res.render('home', { users });
+      });
+    }
+  }
 });
 
 app.post('/login', function (req, res) {

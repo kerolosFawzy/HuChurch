@@ -1,49 +1,42 @@
 <%- include('includes/header', {title: "Home" }); %>
 
     <body>
-        <nav class="navbar navbar-expand navbar-dark bg-dark">
-            <div class="container-fluid">
-                <a href="/" style="all: unset;" class="d-flex flex-row align-items-center">
-                    <img class="me-3" src="logo.png" alt="" width="38" height="48" />
-                    <h3 style="color: aliceblue;">Hurgada Church</h3>
-                </a>
-            </div>
-        </nav>
-        <div class="container form-signin w-100 mt-5 d-flex justify-content-center">
-            <form method="post" action="/add-user">
-                <img class="mb-4" src="logo.png" alt="" width="72" height="92">
-                <h1 class="h3 mb-3 fw-normal">Add New User</h1>
+        <%- include('includes/home-header'); %>
+            <div class="container form-signin w-100 mt-5 d-flex justify-content-center">
+                <form method="post" action="/add-user">
+                    <img class="mb-4" src="logo.png" alt="" width="72" height="92">
+                    <h1 class="h3 mb-3 fw-normal">Add New User</h1>
 
-                <div class="form-floating">
-                    <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com" required
-                        name="email">
-                    <label for="floatingInput">Email address</label>
-                </div>
-                <div class="form-floating">
-                    <input type="password" class="form-control" id="floatingPassword" placeholder="Password" required
-                        name="password">
-                    <label for="floatingPassword">Password</label>
-                </div>
-                <div class="form-floating mt-2">
-                    <input type="text" class="form-control" id="floatingInput" name="name" required>
-                    <label for="floatingInput">Full Name</label>
-                </div>
-                <div class="form-floating mt-2">
-                    <input type="number" class="form-control" id="floatingInput" placeholder="01200000000" name="phone"
-                        required>
-                    <label for="floatingInput">Phone</label>
-                </div>
-                <button class="btn btn-primary w-100 py-2 mt-5" type="submit">Add User</button>
-            </form>
-        </div>
-        <% if (error){ %>
-            <div class="bg-body-tertiary p-5 rounded mt-5">
-                <h1 style="color: brown">Error</h1>
-                <p class="lead">
-                    <%= error %>.
-                </p>
+                    <div class="form-floating">
+                        <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com"
+                            required name="email">
+                        <label for="floatingInput">Email address</label>
+                    </div>
+                    <div class="form-floating">
+                        <input type="password" class="form-control" id="floatingPassword" placeholder="Password"
+                            required name="password">
+                        <label for="floatingPassword">Password</label>
+                    </div>
+                    <div class="form-floating mt-2">
+                        <input type="text" class="form-control" id="floatingInput" name="name" required>
+                        <label for="floatingInput">Full Name</label>
+                    </div>
+                    <div class="form-floating mt-2">
+                        <input type="number" class="form-control" id="floatingInput" placeholder="01200000000"
+                            name="phone" required>
+                        <label for="floatingInput">Phone</label>
+                    </div>
+                    <button class="btn btn-primary w-100 py-2 mt-5" type="submit">Add User</button>
+                </form>
             </div>
-            <% } %>
+            <% if (error){ %>
+                <div class="bg-body-tertiary p-5 rounded mt-5">
+                    <h1 style="color: brown">Error</h1>
+                    <p class="lead">
+                        <%= error %>.
+                    </p>
+                </div>
+                <% } %>
 
     </body>
 

@@ -1,27 +1,94 @@
 <%- include('includes/header', {title: "Home" }); %>
 
     <body>
-        <header class="p-3 text-bg-dark">
-            <div class="container">
-                <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
-                    <a href="/" class="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none">
-                        <img class="me-3" src="logo.png" alt="" width="38" height="48" />
-                        <h3 style="color: aliceblue;">Hurgada Church</h3>
-                    </a>
+        <%- include('includes/home-header'); %>
 
-                    <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0 mx-2">
-                        <li><a href="/" class="nav-link px-2 text-secondary">Home</a></li>
-                        <li><a href="/add-user" class="nav-link px-2 text-white">Add User</a></li>
-                        <li><a href="/add" class="nav-link px-2 text-white">Add Person</a></li>
-                    </ul>
-                    <div class="text-end">
-                        <a href="/logout">
-                            <button type="button" class="btn btn-warning">LogOut</button>
-                        </a>
+            <div class="container mt-5">
+                <form class="row g-3 " method="post" action="/">
+                    <label class="form-label" style="font-size: larger;font-weight: bold;">Search By</label>
+
+                    <div class="col-md-3 col-4  position-relative">
+                        <label for="validationTooltip01" class="form-label">First name</label>
+                        <input type="text" class="form-control" id="validationTooltip01" name="Fname" minlength="3" />
                     </div>
-                </div>
+                    <div class="col-md-3 col-4  col-4 position-relative">
+                        <label for="validationTooltip02" class="form-label">Rest of the name</label>
+                        <input type="text" class="form-control" name="Rname" minlength="3" />
+                    </div>
+                    <div class="col-md-3 col-4  position-relative">
+                        <div class="d-flex flex-row">
+                            <label for="validationTooltipUsername" class="form-label">Age From - To</label>
+                        </div>
+                        <div class="d-flex flex-row mb-3">
+                            <input type="number" class="form-control me-3" name="min_age" />
+                            <input type="number" class="form-control" name="max_age" />
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-4  position-relative">
+                        <label for="validationTooltipUsername" class="form-label">Phone</label>
+                        <div class="input-group has-validation">
+                            <span class="input-group-text" id="validationTooltipUsernamePrepend">📞</span>
+                            <input type="number" class="form-control" id="validationTooltipUsername" name="phone"
+                                aria-describedby="validationTooltipUsernamePrepend" />
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-4  position-relative">
+                        <label for="validationTooltipUsername" class="form-label">Church Name</label>
+                        <div class="input-group has-validation">
+                            <input type="text" class="form-control" id="validationTooltipUsername" name="ChName"
+                                aria-describedby="validationTooltipUsernamePrepend" minlength="3" />
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-4  position-relative">
+                        <label for="validationTooltip03" class="form-label">City</label>
+                        <input type="text" class="form-control" id="validationTooltip03" name="city" minlength="3" />
+                    </div>
+                    <div class="col-md-3 col-4  position-relative">
+                        <label for="validationTooltip03" class="form-label">Area</label>
+                        <input type="text" class="form-control" id="validationTooltip03" name="area" minlength="3" />
+                    </div>
+
+                    <div class="col-md-3 col-8 position-relative d-flex align-items-end">
+                        <button class="btn btn-primary btn-lg" type="submit" style="width: 100%">
+                            <span style="font-weight: bold; font-size: larger;">🔍</span> Search
+                        </button>
+                    </div>
+                </form>
+                <hr class="hr" />
+                <table class="table table-dark table-striped">
+                    <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Name</th>
+                            <th scope="col">phone</th>
+                            <th scope="col">Church name</th>
+                            <th scope="col">Address</th>
+                            <th scope="col">email</th>
+                            <th scope="col">ِAction</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% users.forEach((user , index)=>{%>
+                            <tr>
+                                <th scope="row">
+                                    <%= index+1 %>
+                                </th>
+                                <td>
+                                    <%= user.Fname+" " + user.Rname %>
+                                </td>
+                                <td><%= user.phone %></td>
+                                <td><%= user.ChName %></td>
+                                <td><%= user.city + " " + user.area + " " + user.street  %></td>
+                                <td><%= user.email %></td>
+                                <td>
+                                    
+                                    ✏️Edit
+                                </td>
+                            </tr>
+                            <% });%>
+                    </tbody>
+                </table>
             </div>
-        </header>
     </body>
 
     </html>
