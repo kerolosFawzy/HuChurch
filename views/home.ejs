@@ -12,7 +12,7 @@
                         <input type="text" class="form-control" id="validationTooltip01" name="Fname" minlength="3" />
                     </div>
                     <div class="col-md-3 col-4  col-4 position-relative">
-                        <label for="validationTooltip02" class="form-label">Rest of the name</label>
+                        <label for="validationTooltip02" class="form-label">Last name</label>
                         <input type="text" class="form-control" name="Rname" minlength="3" />
                     </div>
                     <div class="col-md-3 col-4  position-relative">
@@ -81,8 +81,12 @@
                                 <td><%= user.city + " " + user.area + " " + user.street  %></td>
                                 <td><%= user.email %></td>
                                 <td>
-                                    
-                                    ✏️Edit
+                                    <form action=" /edit/<%=encodeURIComponent(JSON.stringify(user))%>" method="get">
+                                        <button type="submit" class="btn btn-link"
+                                            style="width: 70%; margin-left: 15%;">
+                                            ✏️ Edit
+                                        </button>
+                                    </form>
                                 </td>
                             </tr>
                             <% });%>

@@ -29,3 +29,17 @@ const UserSchema = new Schema({
 
 export const PersonModel = mongoose.model('Person', PersonSchema);
 export const AdminModel = mongoose.model('admins', UserSchema);
+
+export const deletePerson = (_id) => {
+  PersonModel.remove({ _id }, (err) => {
+    if (err) console.log(err);
+    else console.log('Successfully deleted');
+  });
+};
+
+export const updatePerson = (_id, user) => {
+  PersonModel.findByIdAndUpdate({ _id }, { ...user }, (err) => {
+    if (err) console.log(err);
+    else console.log('Successfully updated ');
+  });
+};

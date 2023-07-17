@@ -2,7 +2,13 @@ import express from 'express';
 import bodyParser from 'body-parser';
 import bcrypt from 'bcryptjs';
 import session from 'express-session';
-import { AdminModel, PersonModel } from './db/database.js';
+import {
+  AdminModel,
+  PersonModel,
+  deletePerson,
+  updatePerson,
+} from './db/database.js';
+import { removeEmpty } from './utlis/common.js';
 
 const app = express();
 const saltRounds = 10;
@@ -22,14 +28,14 @@ app.use(
 app.get('/', function (req, res) {
   if (!req.session.user) res.render('login', { error: false });
   else {
-    PersonModel.find({}).then((users) => {
-      res.render('home', { users });
-    });
+    PersonModel.find({})
+      .select('-__v -createdAt -updatedAt')
+      .then((users) => {
+        res.render('home', { users });
+      });
   }
 });
-function removeEmpty(obj) {
-  return Object.fromEntries(Object.entries(obj).filter(([_, v]) => v != ''));
-}
+
 app.post('/', function (req, res) {
   if (!req.session.user) res.render('login', { error: false });
   else {
@@ -38,22 +44,18 @@ app.post('/', function (req, res) {
       const defaultMinAge = 1;
       const defaultMaxAge = 100;
 
-      // Calculate the minimum and maximum age based on the default or the specified values
       const minAge = data.min_age ? parseInt(data.min_age) : defaultMinAge;
       const maxAge = data.max_age ? parseInt(data.max_age) : defaultMaxAge;
 
-      // Calculate the minimum and maximum age ranges in milliseconds
       const minAgeMilliseconds = minAge * 365 * 24 * 60 * 60 * 1000;
       const maxAgeMilliseconds = maxAge * 365 * 24 * 60 * 60 * 1000;
 
-      // Create the age range conditions
       const ageRangeConditions = [
         {
           $lte: [{ $subtract: [new Date(), '$date'] }, maxAgeMilliseconds],
         },
       ];
 
-      // Add the minimum age condition if it is greater than the default
       if (minAge > defaultMinAge) {
         ageRangeConditions.push({
           $gte: [{ $subtract: [new Date(), '$date'] }, minAgeMilliseconds],
@@ -171,6 +173,30 @@ app.post('/add', async function (req, res) {
     console.log(error);
     res.render('add', { error: error.message, success: false });
   }
+});
+
+app.get('/edit/:user', function (req, res) {
+  if (req.params.user !== 'logo.png') {
+    const userString = decodeURIComponent(req.params.user);
+    const user = JSON.parse(userString);
+
+    res.render('edit', { user });
+  }
+});
+app.post('/edit', function (req, res) {
+  console.log(req.body);
+  const user = req.body;
+  const _id = user._id;
+  delete user._id;
+
+  updatePerson(_id, user);
+  res.redirect('/');
+});
+
+app.get('/delete', function (req, res) {
+  const userId = req.query.id;
+  deletePerson(userId);
+  res.redirect('/');
 });
 
 app.get('/logout', (req, res) => {

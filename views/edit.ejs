@@ -1,0 +1,85 @@
+<%- include('includes/header', {title: "Add" }); %>
+
+
+    <body>
+        <%- include('includes/home-header'); %>
+
+            <div class="container mt-5">
+                <form class="row g-3 needs-validation was-validated" novalidate="" method="post" action="/edit">
+                    <div class="col-md-4 position-relative">
+                        <label for="validationTooltip01" class="form-label">First name</label>
+                        <input type="text" class="form-control" name="Fname" required value="<%= user.Fname %>"
+                            minlength="3" />
+                    </div>
+                    <div class="col-md-4 position-relative">
+                        <label for="validationTooltip02" class="form-label">Rest of the name</label>
+                        <input type="text" class="form-control" name="Rname" required="" value="<%= user.Rname %>"
+                            minlength="3" />
+                    </div>
+                    <div class="col-md-4 position-relative">
+                        <label for="validationTooltipUsername" class="form-label">Date Of Birth</label>
+                        <div class="input-group has-validation">
+                            <input type="date" id="datepicker" name="date" class="form-control" required
+                                value="<%= new Date(user.date?? '1/1/2000').toISOString().split('T')[0] %>" />
+
+                        </div>
+                    </div>
+                    <div class="col-md-4 position-relative">
+                        <label for="validationTooltipUsername" class="form-label">Email</label>
+                        <div class="input-group has-validation">
+                            <span class="input-group-text" id="validationTooltipUsernamePrepend">@</span>
+                            <input type="email" class="form-control" id="validationTooltipUsername" name="email"
+                                value="<%= user.email %>" aria-describedby="validationTooltipUsernamePrepend" />
+                        </div>
+                    </div>
+                    <div class="col-md-4 position-relative">
+                        <label for="validationTooltipUsername" class="form-label">Phone</label>
+                        <div class="input-group has-validation">
+                            <span class="input-group-text" id="validationTooltipUsernamePrepend">📞</span>
+                            <input type="number" class="form-control" id="validationTooltipUsername" name="phone"
+                                value="<%= user.phone %>" aria-describedby="validationTooltipUsernamePrepend"
+                                required />
+                        </div>
+                    </div>
+                    <div class="col-md-4 position-relative">
+                        <label for="validationTooltipUsername" class="form-label">Church Name</label>
+                        <div class="input-group has-validation">
+                            <input type="text" class="form-control" id="validationTooltipUsername" name="ChName"
+                                value="<%= user.ChName %>" aria-describedby="validationTooltipUsernamePrepend" required
+                                minlength="3" />
+                        </div>
+                    </div>
+                    <div class="col-md-4 position-relative">
+                        <label for="validationTooltip03" class="form-label">City</label>
+                        <input type="text" class="form-control" id="validationTooltip03" value="Hurgada" name="city"
+                            value="<%= user.city  %>" required="" minlength="3" />
+                    </div>
+                    <div class="col-md-4 position-relative">
+                        <label for="validationTooltip03" class="form-label">Area</label>
+                        <input type="text" class="form-control" id="validationTooltip03" required="" name="area"
+                            value="<%= user.area %>" minlength="3" />
+                    </div>
+                    <div class="col-md-4 position-relative">
+                        <label for="validationTooltip03" class="form-label">Street</label>
+                        <input type="text" class="form-control" id="validationTooltip03" required="" name="street"
+                            value="<%= user.street %>" minlength="3" />
+                    </div>
+
+                    <div class="col-12 mt-5">
+                        <button class="btn btn-primary btn-lg" type="submit" style="width: 70%; margin-left: 15%">
+                            Save
+                        </button>
+                    </div>
+                    <input type="text" style="visibility: hidden;" value="<%= user._id %>" name="_id">
+                </form>
+                <div class="col-12 mt-5">
+                    <a href="/delete?id=<%= user._id %>">
+                        <button class="btn btn-danger btn-lg" style="width: 70%; margin-left: 15%;">
+                            <span style="font-weight: bold; font-size: larger;">🗑️</span> Remove Person
+                        </button>
+                    </a>
+                </div>
+            </div>
+    </body>
+
+    </html>
